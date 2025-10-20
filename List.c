@@ -25,7 +25,6 @@ void free_list(t_list * list) {
 }
 
 void print_list(t_list * list) {
-
 }
 
 
