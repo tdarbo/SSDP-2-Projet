@@ -8,10 +8,11 @@
 #include "List.h"
 
 struct s_adjacency_list {
-    t_list * head;
+    t_list ** head;
     int size;
 } typedef t_adj_list;
 
 t_adj_list * create_empty_adj_list(int);
+void free_adj_list(t_adj_list *);
 
 #endif //SSDP_2_PROJET_ADJACENCYLIST_H

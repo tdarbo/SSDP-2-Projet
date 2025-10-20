@@ -24,4 +24,8 @@ void free_list(t_list * list) {
     free(list);
 }
 
+void print_list(t_list * list) {
+
+}
+
 
