@@ -13,6 +13,8 @@ int main(void) {
     add_cell_to_adj_list(adj_list, 1, 3, 1.61f);
     printf("Printlist:\n");
     print_adj_list(adj_list);
+
+    validate_adj_list(adj_list);
     free_adj_list(adj_list);
     return 0;
 }
