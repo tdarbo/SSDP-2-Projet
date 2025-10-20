@@ -14,3 +14,7 @@ t_cell * create_cell(const int value) {
 void free_cell(t_cell * cell) {
     free(cell);
 }
+
+void print_cell(const t_cell * cell) {
+    printf("--> [%d|@%p]\n",cell->value,cell->next);
+}

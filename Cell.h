@@ -5,6 +5,8 @@
 #ifndef SSDP_2_PROJET_CELL_H
 #define SSDP_2_PROJET_CELL_H
 
+#include <stdio.h>
+
 struct s_cell {
     int value;
     struct s_cell *next;
@@ -12,5 +14,6 @@ struct s_cell {
 
 t_cell * create_cell(int);
 void free_cell(t_cell *);
+void print_cell(const t_cell *);
 
 #endif //SSDP_2_PROJET_CELL_H
