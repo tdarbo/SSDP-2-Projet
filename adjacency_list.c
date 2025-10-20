@@ -48,11 +48,30 @@ void print_adj_list(const t_adj_list * adj_list) {
 
 
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
-    if (adj_list == NULL) return;
-    if (adj_list->inner_list == NULL) return;
     if (list_index < 0 || list_index >= adj_list->size) return;
 
     add_cell_to_list(adj_list->inner_list[list_index], cell_index_to, cell_value);
 
 
+}
+
+
+int validate_adj_list(const t_adj_list * adj_list) {
+    t_list ** a_list = adj_list->inner_list;
+
+    for (int i = 0; i < adj_list->size; ++i) {
+        float sum = 0;
+        printf("List %d : ",i+1);
+        t_cell * cell = a_list[i]->head;
+        printf("[HEAD @%p] ",cell);
+        while (cell != NULL) {
+            cell = cell->next;
+            sum += cell->value;
+        printf("sum=%f ",sum);
+    }
+    printf("\n");
+    }
+    
+
+    return 1;
 }
