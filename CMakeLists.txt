@@ -11,4 +11,6 @@ add_executable(SSDP_2_Projet main.c
         list.c
         list.h
         adjacency_list.c
-        adjacency_list.h)
+        adjacency_list.h
+        logger.c
+        logger.h)
