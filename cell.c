@@ -10,6 +10,7 @@ t_cell * create_cell(const int index_to, const float value) {
     t_cell * cell = (t_cell *) malloc(sizeof(t_cell));
     cell->value = value;
     cell->index_to = index_to;
+    cell->next = NULL;
     return cell;
 }
 
