@@ -1,19 +1,15 @@
 //
 // Created by Helytre on 10/20/25.
 //
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #ifndef SSDP_2_PROJET_LOGGER_H
 #define SSDP_2_PROJET_LOGGER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-
-const int LOGGING = 1;
-const int SAVING = 1;
-
-void logger(int LOGGING);
+FILE* logger_init();
+void logger_close(FILE*);
+void logger_write(FILE*, char*);
+void logger_test(int test, char* valid, char* error);
 
 #endif //SSDP_2_PROJET_LOGGER_H

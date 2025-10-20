@@ -1,6 +1,8 @@
 #include <stdio.h>
 
+#include "logger.h"
+
 int main(void) {
-    printf("Hello, World!\n");
+    logger("voila");
     return 0;
 }
