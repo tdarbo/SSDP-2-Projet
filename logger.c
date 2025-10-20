@@ -22,14 +22,17 @@ FILE* logger_init(){
 }
 
 void logger_close(FILE* logs){
+    if(!LOGGING) return;
     if(LOGGING) fclose(logs);
 }
 
 void logger_write(FILE* logs, char* msg){
+    if(!LOGGING) return;
     fprintf(logs, "%s", msg);
 }
 
 void logger_test(int test, char* valid, char* error){
+    if(!LOGGING) return;
     if (test){
         fprintf(logger_init(), "ERROR : %s", error);
     }else{
