@@ -31,7 +31,7 @@ void free_adj_list(t_adj_list * adj_list) {
 
 void print_adj_list(const t_adj_list * adj_list) {
 
-    t_list ** a_list = adj_list->head;
+    t_list ** a_list = adj_list->inner_list;
     const int size = adj_list->size;
 
     for (int i = 0; i < size; ++i) {
