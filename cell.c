@@ -2,7 +2,7 @@
 // Created by thomas on 10/20/25.
 //
 
-#include "Cell.h"
+#include "cell.h"
 
 #include <stdlib.h>
 
