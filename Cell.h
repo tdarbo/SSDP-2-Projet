@@ -8,11 +8,12 @@
 #include <stdio.h>
 
 struct s_cell {
-    int value;
+    float value;
+    int index_to;
     struct s_cell *next;
 } typedef t_cell;
 
-t_cell * create_cell(int);
+t_cell * create_cell(int,float);
 void free_cell(t_cell *);
 void print_cell(const t_cell *);
 

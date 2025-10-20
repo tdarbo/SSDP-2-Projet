@@ -8,7 +8,7 @@
 #include "List.h"
 
 struct s_adjacency_list {
-    t_list ** head;
+    t_list ** inner_list;
     int size;
 } typedef t_adj_list;
 
