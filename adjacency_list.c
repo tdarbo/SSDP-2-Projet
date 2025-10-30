@@ -56,22 +56,33 @@ void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int
 }
 
 
-int validate_adj_list(const t_adj_list * adj_list) {
+int validate_adj_list(t_adj_list * adj_list) {
     t_list ** a_list = adj_list->inner_list;
+    const int size = adj_list->size;
+    int is_valid = 1;
 
-    for (int i = 0; i < adj_list->size; ++i) {
+    for (int i = 0; i < size; ++i) {
         float sum = 0;
-        printf("List %d : ",i+1);
         t_cell * cell = a_list[i]->head;
-        printf("[HEAD @%p] ",cell);
+        
         while (cell != NULL) {
-            cell = cell->next;
             sum += cell->value;
-        printf("sum=%f ",sum);
-    }
-    printf("\n");
+            cell = cell->next;
+        }
+        
+        if (a_list[i]->head != NULL) {
+            if (sum < 0.99 || sum > 1.01) {
+                printf("La somme des probabilites du sommet %d est %.2f\n", i, sum);
+                is_valid = 0;
+            }
+        }
     }
     
+    if (is_valid) {
+        printf("Le graphe est un graphe de Markov\n");
+    } else {
+        printf("Le graphe n'est pas un graphe de Markov\n");
+    }
 
-    return 1;
+    return is_valid;
 }
