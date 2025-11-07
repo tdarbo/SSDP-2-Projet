@@ -19,5 +19,5 @@ void free_cell(t_cell * cell) {
 }
 
 void print_cell(const t_cell * cell) {
-    printf("--> [%d|%f|@%p]", cell->index_to, cell->value, cell);
+    printf("--> [%d|%.2f|@%p]", cell->index_to, cell->value, cell);
 }
