@@ -9,7 +9,6 @@ int main(void) {
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
-    list_export(*adj_list);
     free_adj_list(adj_list);
     return 0;
 }
