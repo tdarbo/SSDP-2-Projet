@@ -27,17 +27,13 @@ void free_list(t_list * list) {
 
 void add_cell_to_list(t_list * list, int index, float value) {
     if (list == NULL) return;
-    printf("list non nulle\n");
     t_cell * new_cell = create_cell(index, value);
-    printf("created cell @%p\n", new_cell);
     if (list->head == NULL) {
         list->head = new_cell;
         return;
     }
-    printf("head non nulle @%p\n", list->head);
     t_cell * temp = list->head;
     while (temp->next != NULL) {
-        printf("Traversing cell @%p\n", temp);
         temp = temp->next;
     }
     temp->next = new_cell;
