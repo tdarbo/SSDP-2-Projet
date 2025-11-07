@@ -71,7 +71,6 @@ int validate_adj_list(t_adj_list * adj_list) {
     for (int i = 0; i < size; ++i) {
         float sum = 0;
         t_cell * cell = a_list[i]->head;
-
         while (cell != NULL) {
             sum += cell->value;
             cell = cell->next;
@@ -79,7 +78,7 @@ int validate_adj_list(t_adj_list * adj_list) {
 
         if (a_list[i]->head != NULL) {
             if (fabs(sum - 1.0) > APROXIMITY_RANGE) {
-                printf("La somme des probabilites du sommet %d est %.2f\n", i, sum);
+                printf("La somme des probabilites du sommet %d est %.2f\n", i+1, sum);
                 is_valid = 0;
             }
         }

@@ -5,7 +5,7 @@
 
 int main(void) {
     printf("Adjacency List Example\n");
-    t_adj_list* adj_list = list_import("../data/exemple1.txt");
+    t_adj_list* adj_list = list_import("../data/exemple2.txt");
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
