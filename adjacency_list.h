@@ -17,5 +17,7 @@ void free_adj_list(t_adj_list *);
 void print_adj_list(const t_adj_list *);
 void add_cell_to_adj_list(t_adj_list *, int, int, float);
 int validate_adj_list(t_adj_list *);
+char * getId(int num);
+void generate_mermaid_file(const t_adj_list * adj_list, const char * filename);
 
 #endif //SSDP_2_PROJET_ADJACENCYLIST_H
