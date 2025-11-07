@@ -2,11 +2,14 @@
 // Created by thomas on 10/20/25.
 //
 
+#include <math.h>
 #include "adjacency_list.h"
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+
+#define APROXIMITY_RANGE 0.1
 
 #define APROXIMITY_RANGE 0.1
 
@@ -48,16 +51,11 @@ void print_adj_list(const t_adj_list * adj_list) {
 
 
 }
-
-
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
     if (list_index < 0 || list_index >= adj_list->size) return;
 
     add_cell_to_list(adj_list->inner_list[list_index], cell_index_to, cell_value);
-
-
 }
-
 
 int validate_adj_list(t_adj_list * adj_list) {
     t_list ** a_list = adj_list->inner_list;
@@ -67,12 +65,12 @@ int validate_adj_list(t_adj_list * adj_list) {
     for (int i = 0; i < size; ++i) {
         float sum = 0;
         t_cell * cell = a_list[i]->head;
-        
+
         while (cell != NULL) {
             sum += cell->value;
             cell = cell->next;
         }
-        
+
         if (a_list[i]->head != NULL) {
             if (fabs(sum - 1.0) > APROXIMITY_RANGE) {
                 printf("La somme des probabilites du sommet %d est %.2f\n", i, sum);
@@ -80,12 +78,11 @@ int validate_adj_list(t_adj_list * adj_list) {
             }
         }
     }
-    
+
     if (is_valid) {
         printf("Le graphe est un graphe de Markov\n");
     } else {
         printf("Le graphe n'est pas un graphe de Markov\n");
     }
-
     return is_valid;
 }
