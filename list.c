@@ -14,6 +14,7 @@ t_list * create_empty_list() {
 }
 
 void free_list(t_list * list) {
+    if (list == NULL) {printf("Erreur: liste invalide\n"); return;}
     t_cell * cell = list->head;
 
     while (cell != NULL) {
@@ -26,18 +27,16 @@ void free_list(t_list * list) {
 }
 
 void add_cell_to_list(t_list * list, int index, float value) {
-    if (list == NULL) return;
-    printf("list non nulle\n");
+    if (list == NULL) {printf("Erreur: liste invalide\n"); return;}
+    if (index < 0) {printf("Erreur: index invalide\n"); return;}
     t_cell * new_cell = create_cell(index, value);
-    printf("created cell @%p\n", new_cell);
+
     if (list->head == NULL) {
         list->head = new_cell;
         return;
     }
-    printf("head non nulle @%p\n", list->head);
     t_cell * temp = list->head;
     while (temp->next != NULL) {
-        printf("Traversing cell @%p\n", temp);
         temp = temp->next;
     }
     temp->next = new_cell;
@@ -45,6 +44,7 @@ void add_cell_to_list(t_list * list, int index, float value) {
 
 
 void print_list(const t_list * list) {
+    if (list == NULL) {printf("Erreur: liste invalide\n"); return;}
     const t_cell * cell = list->head;
     printf("[HEAD @%p] ",cell);
     while (cell != NULL) {

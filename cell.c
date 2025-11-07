@@ -15,9 +15,11 @@ t_cell * create_cell(const int index_to, const float value) {
 }
 
 void free_cell(t_cell * cell) {
+    if (cell == NULL) {printf("Erreur: cellule invalide\n"); return;}
     free(cell);
 }
 
 void print_cell(const t_cell * cell) {
+    if (cell == NULL) {printf("Erreur: cellule invalide\n"); return;}
     printf("--> [%d|%f|@%p]", cell->index_to, cell->value, cell);
 }
