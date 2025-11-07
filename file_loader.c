@@ -27,7 +27,7 @@ t_adj_list* list_import(const char* file_name){
 void list_export(t_adj_list graph){
     FILE *export_file = fopen("D:/0_Code/C++/SSDP-2-Projet/export/list.txt", "w");
     if (export_file != NULL){
-        fprintf(export_file, "---\nconfig:\n    layout: elk\n   theme: neo\n    look: neo\n---\n\nflowchart LR\n");
+        fprintf(export_file, "---\nconfig:\n    layout: elk\n    theme: neo\n    look: neo\n---\n\nflowchart LR\n");
         for (int i =0; i < graph.size; i++){
             fprintf(export_file,"%c((%d))\n",'A'+i,i+1);
         }
