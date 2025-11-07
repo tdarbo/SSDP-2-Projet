@@ -2,6 +2,7 @@
 // Created by thomas on 10/20/25.
 //
 
+#include <math.h>
 #include "adjacency_list.h"
 #include "list.h"
 #include <stdlib.h>
@@ -51,18 +52,13 @@ void print_adj_list(const t_adj_list * adj_list) {
 
 
 }
-
-
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
     if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return;}
     if (list_index < 0 || list_index >= adj_list->size) {printf("Erreur: index de liste invalide\n"); return;}
     if (cell_index_to < 0 || cell_index_to >= adj_list->size) {printf("Erreur: index de cellule invalide\n"); return;}
 
     add_cell_to_list(adj_list->inner_list[list_index], cell_index_to, cell_value);
-
-
 }
-
 
 int validate_adj_list(t_adj_list * adj_list) {
     if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return 0;}
@@ -75,12 +71,12 @@ int validate_adj_list(t_adj_list * adj_list) {
     for (int i = 0; i < size; ++i) {
         float sum = 0;
         t_cell * cell = a_list[i]->head;
-        
+
         while (cell != NULL) {
             sum += cell->value;
             cell = cell->next;
         }
-        
+
         if (a_list[i]->head != NULL) {
             if (fabs(sum - 1.0) > APROXIMITY_RANGE) {
                 printf("La somme des probabilites du sommet %d est %.2f\n", i, sum);
@@ -88,13 +84,12 @@ int validate_adj_list(t_adj_list * adj_list) {
             }
         }
     }
-    
+
     if (is_valid) {
         printf("Le graphe est un graphe de Markov\n");
     } else {
         printf("Le graphe n'est pas un graphe de Markov\n");
     }
-
     return is_valid;
 }
 
@@ -133,7 +128,7 @@ void generate_mermaid_file(const t_adj_list * adj_list, const char * filename) {
         printf("Erreur: nom de fichier NULL\n");
         return;
     }
-    
+
     FILE * file = fopen(filename, "w");
     if (file == NULL) {
         printf("Erreur: impossible d'ouvrir le fichier %s\n", filename);
@@ -161,7 +156,8 @@ void generate_mermaid_file(const t_adj_list * adj_list, const char * filename) {
             char from_id[10];
             char to_id[10];
             strcpy(from_id, getId(i + 1));
-            strcpy(to_id, getId(cell->index_to + 1));
+
+            strcpy(to_id, getId(cell->index_to));
             fprintf(file, "  %s -->|%.2f|%s\n", 
                     from_id, 
                     cell->value, 
