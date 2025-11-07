@@ -26,6 +26,7 @@ t_adj_list * create_empty_adj_list(const int size) {
 }
 
 void free_adj_list(t_adj_list * adj_list) {
+    if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return;}
 
     t_list ** a_list = adj_list->inner_list;
     const int size = adj_list->size;
@@ -38,6 +39,7 @@ void free_adj_list(t_adj_list * adj_list) {
 }
 
 void print_adj_list(const t_adj_list * adj_list) {
+    if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return;}
 
     t_list ** a_list = adj_list->inner_list;
     const int size = adj_list->size;
@@ -52,7 +54,9 @@ void print_adj_list(const t_adj_list * adj_list) {
 
 
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
-    if (list_index < 0 || list_index >= adj_list->size) return;
+    if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return;}
+    if (list_index < 0 || list_index >= adj_list->size) {printf("Erreur: index de liste invalide\n"); return;}
+    if (cell_index_to < 0 || cell_index_to >= adj_list->size) {printf("Erreur: index de cellule invalide\n"); return;}
 
     add_cell_to_list(adj_list->inner_list[list_index], cell_index_to, cell_value);
 
@@ -61,6 +65,9 @@ void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int
 
 
 int validate_adj_list(t_adj_list * adj_list) {
+    if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return 0;}
+    
+    
     t_list ** a_list = adj_list->inner_list;
     const int size = adj_list->size;
     int is_valid = 1;
@@ -117,6 +124,16 @@ char * getId(int num) {
 }
 
 void generate_mermaid_file(const t_adj_list * adj_list, const char * filename) {
+    if (adj_list == NULL || adj_list->inner_list == NULL) {
+        printf("Erreur: liste d'adjacence invalide\n");
+        return;
+    }
+    
+    if (filename == NULL) {
+        printf("Erreur: nom de fichier NULL\n");
+        return;
+    }
+    
     FILE * file = fopen(filename, "w");
     if (file == NULL) {
         printf("Erreur: impossible d'ouvrir le fichier %s\n", filename);
