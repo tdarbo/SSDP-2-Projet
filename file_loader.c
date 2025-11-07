@@ -35,7 +35,7 @@ void list_export(t_adj_list graph){
         for (int i =0; i < graph.size; i++){
             t_cell * cell = graph.inner_list[i]->head;
             while (cell != NULL) {
-                fprintf(export_file,"%c -->|%.2f|%c\n",'A'+i,cell->value,'A'+cell->index_to);
+                fprintf(export_file,"%c -->|%.2f|%c\n",'A'+i,cell->value,'A'+cell->index_to-1);
                 cell = cell->next;
             }
         }
