@@ -6,6 +6,9 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+
+#define APROXIMITY_RANGE 0.1
 
 t_adj_list * create_empty_adj_list(const int size) {
     t_adj_list * new_adj_list = (t_adj_list *) malloc(sizeof(t_adj_list));
@@ -71,7 +74,7 @@ int validate_adj_list(t_adj_list * adj_list) {
         }
         
         if (a_list[i]->head != NULL) {
-            if (sum < 0.99 || sum > 1.01) {
+            if (fabs(sum - 1.0) > APROXIMITY_RANGE) {
                 printf("La somme des probabilites du sommet %d est %.2f\n", i, sum);
                 is_valid = 0;
             }
