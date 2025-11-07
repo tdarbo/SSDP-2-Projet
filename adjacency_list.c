@@ -12,8 +12,6 @@
 
 #define APROXIMITY_RANGE 0.1
 
-#define APROXIMITY_RANGE 0.1
-
 t_adj_list * create_empty_adj_list(const int size) {
     t_adj_list * new_adj_list = (t_adj_list *) malloc(sizeof(t_adj_list));
     t_list ** inner_list = (t_list **) malloc(sizeof(t_list*)*size);
@@ -141,7 +139,7 @@ void generate_mermaid_file(const t_adj_list * adj_list, const char * filename) {
             char from_id[10];
             char to_id[10];
             strcpy(from_id, getId(i + 1));
-            strcpy(to_id, getId(cell->index_to + 1));
+            strcpy(to_id, getId(cell->index_to));
             fprintf(file, "  %s -->|%.2f|%s\n", 
                     from_id, 
                     cell->value, 
