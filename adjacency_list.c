@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 #define APROXIMITY_RANGE 0.1
 
@@ -88,4 +89,70 @@ int validate_adj_list(t_adj_list * adj_list) {
     }
 
     return is_valid;
+}
+
+char * getId(int num) {
+    static char id[10];
+    id[0] = '\0';
+    
+    if (num <= 0) return id;
+    
+    num--; // Convert to 0-based index
+    
+    int pos = 0;
+    do {
+        id[pos++] = 'A' + (num % 26);
+        num = num / 26 - 1;
+    } while (num >= 0);
+    
+    // Reverse the string
+    for (int i = 0; i < pos / 2; i++) {
+        char temp = id[i];
+        id[i] = id[pos - 1 - i];
+        id[pos - 1 - i] = temp;
+    }
+    id[pos] = '\0';
+    
+    return id;
+}
+
+void generate_mermaid_file(const t_adj_list * adj_list, const char * filename) {
+    FILE * file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Erreur: impossible d'ouvrir le fichier %s\n", filename);
+        return;
+    }
+    
+    // Write configuration header
+    fprintf(file, "---\n");
+    fprintf(file, "config:\n");
+    fprintf(file, "  layout: elk\n");
+    fprintf(file, "  theme: neo\n");
+    fprintf(file, "  look: neo\n");
+    fprintf(file, "---\n");
+    fprintf(file, "flowchart LR\n");
+    
+    // Write vertices
+    for (int i = 0; i < adj_list->size; i++) {
+        fprintf(file, "  %s((%d))\n", getId(i + 1), i + 1);
+    }
+    
+    // Write edges
+    for (int i = 0; i < adj_list->size; i++) {
+        t_cell * cell = adj_list->inner_list[i]->head;
+        while (cell != NULL) {
+            char from_id[10];
+            char to_id[10];
+            strcpy(from_id, getId(i + 1));
+            strcpy(to_id, getId(cell->index_to + 1));
+            fprintf(file, "  %s -->|%.2f|%s\n", 
+                    from_id, 
+                    cell->value, 
+                    to_id);
+            cell = cell->next;
+        }
+    }
+    
+    fclose(file);
+    printf("Fichier Mermaid genere: %s\n", filename);
 }
