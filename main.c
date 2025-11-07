@@ -9,6 +9,7 @@ int main(void) {
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
+    generate_mermaid_file(adj_list, "graph.txt");
     free_adj_list(adj_list);
     return 0;
 }
