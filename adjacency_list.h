@@ -20,4 +20,5 @@ int validate_adj_list(t_adj_list *);
 char * getId(int num);
 void generate_mermaid_file(const t_adj_list * adj_list, const char * filename);
 
+
 #endif //SSDP_2_PROJET_ADJACENCYLIST_H
