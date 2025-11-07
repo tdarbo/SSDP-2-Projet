@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "list.h"
+#include "file_loader.h"
 #include "adjacency_list.h"
 
 int main(void) {
@@ -14,6 +15,7 @@ int main(void) {
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
+    list_export(*adj_list);
     free_adj_list(adj_list);
     return 0;
 }
