@@ -54,7 +54,7 @@ void print_adj_list(const t_adj_list * adj_list) {
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
     if (adj_list == NULL || adj_list->inner_list == NULL) {printf("Erreur: liste d'adjacence invalide\n"); return;}
     if (list_index < 0 || list_index >= adj_list->size) {printf("Erreur: index de liste invalide\n"); return;}
-    if (cell_index_to < 0 || cell_index_to > adj_list->size) {printf("Erreur: index de cellule invalide\n"); return;}
+    if (cell_index_to <= 0 || cell_index_to > adj_list->size) {printf("Erreur: index de cellule invalide\n"); return;}
 
     add_cell_to_list(adj_list->inner_list[list_index], cell_index_to, cell_value);
 }
