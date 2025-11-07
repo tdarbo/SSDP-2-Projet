@@ -48,7 +48,6 @@ void print_adj_list(const t_adj_list * adj_list) {
 
 
 }
-
 void add_cell_to_adj_list(t_adj_list * adj_list, const int list_index, const int cell_index_to, const float cell_value) {
     if (adj_list == NULL) return;
     if (adj_list->inner_list == NULL) return;
@@ -84,6 +83,5 @@ int validate_adj_list(t_adj_list * adj_list) {
     } else {
         printf("Le graphe n'est pas un graphe de Markov\n");
     }
-
     return is_valid;
 }
