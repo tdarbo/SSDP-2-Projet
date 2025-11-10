@@ -17,6 +17,6 @@ t_pile create_pile();
 void destroy_pile(t_pile*);
 int pop(t_pile*);
 void push(t_pile*, int);
-void delete(t_pile*);
+void delete_pile(t_pile*);
 
 #endif //SSDP_2_PROJET_TARJAN_H

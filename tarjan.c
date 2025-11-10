@@ -30,6 +30,6 @@ void push(t_pile* pil, int val)
     pil->pile[pil->size] = val;
     pil->size++;
 }
-void delete(t_pile* pil){
+void delete_pile(t_pile* pil){
     pil->size--;
 }
