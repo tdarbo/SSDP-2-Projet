@@ -8,6 +8,7 @@
 struct s_partition {
 
     t_class* classes;
+    int size;
 
 } typedef t_partition;
 

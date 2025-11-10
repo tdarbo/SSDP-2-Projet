@@ -17,7 +17,6 @@ struct s_vertex {
 
 struct s_vertex_list {
     t_vertex* vertex;
-    int size;
 } typedef t_vertex_list;
 
 #endif //SSDP_2_PROJET_VERTEX_H
