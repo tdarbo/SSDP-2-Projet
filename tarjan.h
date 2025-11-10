@@ -8,6 +8,13 @@
 #include "adjacency_list.h"
 #include "partition.h"
 #include "vertex.h"
+#include "class.h"
+
+
+#define BOOL int
+#define TRUE 1
+#define FALSE 0
+
 struct s_pile{
     int* pile;
     int size;
@@ -18,5 +25,10 @@ void destroy_pile(t_pile*);
 int pop(t_pile*);
 void push(t_pile*, int);
 void delete_pile(t_pile*);
+
+void parcours(t_vertex, int*, t_pile*, t_partition*, t_adj_list* graph,t_vertex_list*);
+t_partition tarjan(t_adj_list*);
+int min(int,int);
+
 
 #endif //SSDP_2_PROJET_TARJAN_H
