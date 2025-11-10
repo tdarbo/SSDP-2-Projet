@@ -8,6 +8,4 @@
 #include "adjacency_list.h"
 #include "partition.h"
 
-t_
-
 #endif //SSDP_2_PROJET_TARJAN_H
