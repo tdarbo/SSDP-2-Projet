@@ -23,5 +23,6 @@ struct s_vertex_list {
 } typedef t_vertex_list;
 
 t_vertex_list create_vertex_list(t_adj_list);
+void suppress_vertex_list(t_vertex_list);
 
 #endif //SSDP_2_PROJET_VERTEX_H
