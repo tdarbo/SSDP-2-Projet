@@ -22,14 +22,16 @@ void destroy_pile(t_pile* pil)
 }
 int pop(t_pile* pil)
 {
+    if (pil->size == 0) return -99;
     pil->size--;
     return pil->pile[pil->size];
 }
 void push(t_pile* pil, int val)
 {
+    if (pil->size == SIZE) return;
     pil->pile[pil->size] = val;
     pil->size++;
 }
 void delete_pile(t_pile* pil){
-    pil->size--;
+    if (pil->size != 0) pil->size--;
 }
