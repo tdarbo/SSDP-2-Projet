@@ -8,7 +8,9 @@
 
 struct s_class {
 
+       int name;
        int*index;
+       int size;
 
 } typedef t_class;
 
