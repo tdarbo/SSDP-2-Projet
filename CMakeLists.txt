@@ -12,4 +12,12 @@ add_executable(SSDP_2_Projet main.c
         list.h
         adjacency_list.c
         adjacency_list.h
+        vertex.c
+        vertex.h
+        partition.c
+        partition.h
+        class.c
+        class.h
+        tarjan.c
+        tarjan.h
 )
