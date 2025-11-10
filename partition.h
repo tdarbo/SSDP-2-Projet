@@ -5,6 +5,8 @@
 #ifndef SSDP_2_PROJET_PARTITION_H
 #define SSDP_2_PROJET_PARTITION_H
 
+#include "class.h"
+
 struct s_partition {
 
     t_class* classes;
