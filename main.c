@@ -2,6 +2,8 @@
 #include "list.h"
 #include "file_loader.h"
 #include "adjacency_list.h"
+#include "tarjan.h"
+#include "vertex.h"
 
 int main(void) {
     printf("Adjacency List Example\n");
