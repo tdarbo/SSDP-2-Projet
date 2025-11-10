@@ -4,6 +4,7 @@
 
 #ifndef SSDP_2_PROJET_PARTITION_H
 #define SSDP_2_PROJET_PARTITION_H
+#define PARTITION_MAX_SIZE 100
 
 #include "class.h"
 
@@ -13,5 +14,9 @@ struct s_partition {
     int size;
 
 } typedef t_partition;
+
+
+t_partition create_partition();
+void print_partition(t_partition*);
 
 #endif //SSDP_2_PROJET_PARTITION_H
