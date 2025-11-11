@@ -24,9 +24,8 @@ t_pile create_pile();
 void destroy_pile(t_pile*);
 int pop(t_pile*);
 void push(t_pile*, int);
-void delete_pile(t_pile*);
-
-void parcours(t_vertex, int*, t_pile*, t_partition*, t_adj_list* graph,t_vertex_list*);
+t_vertex* get_vertex(t_vertex_list*, int id);
+void parcours(t_vertex*, int*, t_pile*, t_partition*, t_adj_list* graph,t_vertex_list*);
 t_partition tarjan(t_adj_list*);
 int min(int,int);
 

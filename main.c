@@ -14,7 +14,6 @@ int main(void) {
 
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
-    printf("%d\n",partition.size);
 
 
     free_adj_list(adj_list);
