@@ -23,11 +23,12 @@ void delete_class(t_class* c)
     free(c->index);
 }
 
-void print_class(t_class* c)
+void print_class(const t_class* c)
 {
-    printf("\nclass#%d",c->name);
+    printf("class#%d : {",c->name);
     for (int i = 0; i < c->size; i++)
     {
-        printf("%d, ", c->index[i]);
+        if (i == c->size - 1) printf("%d}\n",c->index[i]);
+        else printf("%d, ", c->index[i]);
     }
 }
