@@ -24,6 +24,36 @@ t_vertex_list create_vertex_list(t_adj_list adj_list){
     vertex_list.vertex = list;
     return vertex_list;
 }
+
+t_class_association_list create_class_association_list() {
+    t_class_association_list association_list;
+    association_list.size = 0;
+    int* l = (int*) malloc(sizeof(int) * SIZE);
+    if (l == NULL) {
+        association_list.id = NULL;
+        return association_list;
+    }
+    association_list.id = l;
+    return association_list;
+}
+
+void delete_association_list(t_class_association_list association_list) {
+    free(association_list.id);
+}
+
+
+t_class_association_list create_fill_association_list(const t_partition partition) {
+    const t_class_association_list association_list = create_class_association_list();
+    for (int i = 0; i < partition.size; i++) {
+        const t_class c = partition.classes[i];
+        for (int j = 0; j < c.size; j++) {
+            const int vertex_id = c.index[j];
+            association_list.id[vertex_id] = c.name;
+        }
+    }
+    return association_list;
+}
+
 void suppress_vertex_list(t_vertex_list vertex_list){
     free(vertex_list.vertex);
 }
