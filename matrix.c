@@ -8,10 +8,10 @@ t_matrix create_empty_matrix(int size)
 {
     t_matrix new_matrix;
     new_matrix.size = size;
-    new_matrix.col = calloc(size,sizeof(float*));
+    new_matrix.values = calloc(size,sizeof(float*));
     for (int i=0; i<size; i++)
     {
-        new_matrix.col[i] = calloc(size,sizeof(float));
+        new_matrix.values[i] = calloc(size,sizeof(float));
     }
     return new_matrix;
 }
