@@ -10,13 +10,14 @@
 #include <stdlib.h>
 
 struct s_matrix{
-    float** col;
+    int size;
+    float** values;
 }typedef t_matrix;
 
 t_matrix create_empty_matrix(int);
 t_matrix create_adj_matrix(t_adj_list);
 void free_matrix(t_matrix);
-t_matrix copie_matrix(t_matrix);
+t_matrix copy_matrix(t_matrix);
 t_matrix mult_matrix(t_matrix, t_matrix);
 int diff_matrix(t_matrix, t_matrix);
 
