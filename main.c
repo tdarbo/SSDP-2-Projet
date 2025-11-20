@@ -13,13 +13,23 @@ int main(void) {
     validate_adj_list(adj_list);
     t_matrix matrix = create_adj_matrix(*adj_list);
     print_matrix(matrix);
-    free_matrix(matrix);
     generate_mermaid_file(adj_list, "../export/graph.txt");
 
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
 
 
+    printf("\n=== Test de subMatrix ===\n");
+    for (int i = 0; i < partition.size; i++) {
+        printf("\nSous-matrice pour la classe %d (taille: %d):\n", i, partition.classes[i].size);
+        t_matrix sub_mat = subMatrix(matrix, partition, i);
+        if (sub_mat.size > 0) {
+            print_matrix(sub_mat);
+            free_matrix(sub_mat);
+        }
+    }
+
+    free_matrix(matrix);
     free_adj_list(adj_list);
     return 0;
 }

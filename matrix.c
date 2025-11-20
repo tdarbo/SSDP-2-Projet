@@ -77,10 +77,51 @@ int diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
 
 void print_matrix(t_matrix matrix){
     printf("print matrix :\n");
-    for (int i=0; i<matrix.size; i++){
-        for (int j=0; j<matrix.size-1; j++){
-            printf("%.2f | ", matrix.values[i][j]);
-        }
-        printf("%.2f\n" ,matrix.values[i][matrix.size-1]);
+    if (matrix.size == 0 || matrix.values == NULL) {
+        printf("(empty matrix)\n");
+        return;
     }
+    for (int i = 0; i < matrix.size; i++){
+        for (int j = 0; j < matrix.size; j++){
+            printf("%.2f", matrix.values[i][j]);
+            if (j < matrix.size - 1) {
+                printf(" | ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
+    // Vérification que l'index de la composante est valide
+    if (compo_index < 0 || compo_index >= part.size){
+        t_matrix empty;
+        empty.size = 0;
+        empty.values = NULL;
+        return empty;
+    }
+
+    t_class component = part.classes[compo_index];
+    int sub_size = component.size;
+
+    // Vérification que la composante a des éléments
+    if (sub_size == 0 || component.index == NULL) {
+        t_matrix empty;
+        empty.size = 0;
+        empty.values = NULL;
+        return empty;
+    }
+
+    t_matrix sub_matrix = create_empty_matrix(sub_size);
+
+    // Remplissage
+    for (int i = 0; i < sub_size; i++){
+        for (int j = 0; j < sub_size; j++){
+            int orig_i = component.index[i] - 1;
+            int orig_j = component.index[j] - 1;
+            sub_matrix.values[i][j] = matrix.values[orig_i][orig_j];
+        }
+    }
+
+    return sub_matrix;
 }
