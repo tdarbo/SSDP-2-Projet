@@ -13,12 +13,6 @@ int main(void) {
     validate_adj_list(adj_list);
     t_matrix matrix = create_adj_matrix(*adj_list);
     print_matrix(matrix);
-    t_matrix matrix_copy = copy_matrix(matrix);
-    for (int i = 0; i < 3; i++)
-    {
-        matrix = mult_matrix(matrix_copy, matrix);
-    }
-    print_matrix(matrix);
     free_matrix(matrix);
     generate_mermaid_file(adj_list, "../export/graph.txt");
 
