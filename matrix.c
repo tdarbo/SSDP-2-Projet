@@ -125,3 +125,49 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
 
     return sub_matrix;
 }
+
+t_matrix stationary_distribution(t_matrix matrix, float epsilon, int max_iter){
+    if (matrix.size == 0 || matrix.values == NULL) {
+        return matrix;
+    }
+    
+    t_matrix current = copy_matrix(matrix);
+    t_matrix previous;
+    float diff;
+    int iteration = 1;
+    
+    printf("  M^1:\n");
+    print_matrix(current);
+    
+    do {
+        previous = current;
+        current = mult_matrix(copy_matrix(matrix), previous);
+        diff = diff_matrix(current, previous);
+        iteration++;
+        
+        // Afficher quelques étapes clés
+        if (iteration == 2 || iteration == 5 || iteration == 10 || 
+            iteration == 50 || iteration == 100 || diff < epsilon) {
+            printf("  M^%d (diff=%.6f):\n", iteration, diff);
+            print_matrix(current);
+        }
+        
+        free_matrix(previous);
+        
+        if (iteration >= max_iter) {
+            printf("  Convergence non atteinte après %d itérations\n", max_iter);
+            break;
+        }
+    } while (diff >= epsilon);
+    
+    if (diff < epsilon) {
+        printf("  => Distribution stationnaire (ligne 1): [");
+        for (int j = 0; j < current.size; j++) {
+            printf("%.4f", current.values[0][j]);
+            if (j < current.size - 1) printf(", ");
+        }
+        printf("]\n");
+    }
+    
+    return current;
+}
