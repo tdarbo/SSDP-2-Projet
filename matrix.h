@@ -20,5 +20,6 @@ void free_matrix(t_matrix);
 t_matrix copy_matrix(t_matrix);
 t_matrix mult_matrix(t_matrix, t_matrix);
 int diff_matrix(t_matrix, t_matrix);
+void print_matrix(t_matrix);
 
 #endif //SSDP_2_PROJET_MATRIX_H
