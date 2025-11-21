@@ -18,36 +18,38 @@ int main(void) {
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
 
-
+/*
     printf("\n=== Test de subMatrix ===\n");
     for (int i = 0; i < partition.size; i++) {
         printf("\nSous-matrice pour la classe %d (taille: %d):\n", i, partition.classes[i].size);
         t_matrix sub_mat = subMatrix(matrix, partition, i);
         if (sub_mat.size > 0) {
             print_matrix(sub_mat);
-            free_matrix(sub_mat);
+            free_matrix(&sub_mat);
         }
     }
-
+*/
     // Calcul des distributions stationnaires par classe
     printf("\n=== Distributions stationnaires par classe ===\n");
     
     for (int i = 0; i < partition.size; i++) {
-        printf("\nClasse %d (taille: %d):\n", i, partition.classes[i].size);
+        printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
         
         t_matrix sub = subMatrix(matrix, partition, i);
         if (sub.size == 0) {
             printf("  Classe vide\n");
             continue;
         }
-        
-        t_matrix result = stationary_distribution(sub, EPSILON_CONVERGENCE, MAX_ITERATIONS);
-        
-        free_matrix(result);
-        free_matrix(sub);
+        t_matrix result = stationary_distribution(sub);
+        printf("Sous-matrice => ");
+        print_matrix(sub);
+        free_matrix(&sub);
+        printf("Resultat => ");
+        print_matrix(result);
+        free_matrix(&result);
     }
 
-    free_matrix(matrix);
+    free_matrix(&matrix);
     free_adj_list(adj_list);
     return 0;
 }
