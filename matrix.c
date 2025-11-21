@@ -1,0 +1,173 @@
+//
+// Created by matth on 20/11/2025.
+//
+
+#include "matrix.h"
+
+t_matrix create_empty_matrix(int size){
+    t_matrix new_matrix;
+    new_matrix.size = size;
+    new_matrix.values = calloc(size,sizeof(float*));
+    for (int i=0; i<size; i++){
+        new_matrix.values[i] = calloc(size,sizeof(float));
+    }
+    return new_matrix;
+}
+
+t_matrix create_adj_matrix(t_adj_list list){
+    t_matrix new_matrix = create_empty_matrix(list.size);
+    for (int i=0; i<list.size; i++){
+        t_cell* cur = list.inner_list[i]->head;
+        while (cur != NULL){
+            new_matrix.values[i][cur->index_to-1] = cur->value;
+            cur = cur->next;
+        }
+    }
+    return new_matrix;
+}
+
+void free_matrix(t_matrix matrix){
+    for(int i = 0; i < matrix.size; i++){
+        free(matrix.values[i]);
+    }
+    free(matrix.values);
+}
+
+t_matrix copy_matrix(t_matrix matrix){
+    t_matrix new_matrix;
+    new_matrix.size = matrix.size;
+    new_matrix.values = malloc(matrix.size*sizeof(float*));
+    for (int i=0; i<matrix.size; i++){
+        new_matrix.values[i] = malloc(matrix.size*sizeof(float));
+        for (int j=0; j<matrix.size; j++)
+        {
+            new_matrix.values[i][j] = matrix.values[i][j];
+        }
+    }
+    return new_matrix;
+}
+
+t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
+    int size = matrix_a.size;
+    float temp;
+    for (int i=0; i<size; i++){
+        for (int j=0; j<size; j++){
+            temp = 0;
+            for (int k=0; k<size; k++){
+                temp += matrix_a.values[k][j] * matrix_b.values[i][k];
+            }
+            matrix_a.values[i][j] = temp;
+        }
+    }
+    return matrix_a;
+}
+
+int diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
+    float val = 0, temp;
+    int size = matrix_a.size;
+    for (int i=0; i<size; i++){
+        for (int j=0; j<size; j++){
+            temp = matrix_a.values[i][j] - matrix_b.values[i][j];
+            if (temp>=0) val += temp;
+            else val -= temp;
+        }
+    }
+    return val;
+}
+
+void print_matrix(t_matrix matrix){
+    printf("print matrix :\n");
+    if (matrix.size == 0 || matrix.values == NULL) {
+        printf("(empty matrix)\n");
+        return;
+    }
+    for (int i = 0; i < matrix.size; i++){
+        for (int j = 0; j < matrix.size; j++){
+            printf("%.2f", matrix.values[i][j]);
+            if (j < matrix.size - 1) {
+                printf(" | ");
+            }
+        }
+        printf("\n");
+    }
+}
+
+t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
+    // Vérification que l'index de la composante est valide
+    if (compo_index < 0 || compo_index >= part.size){
+        t_matrix empty;
+        empty.size = 0;
+        empty.values = NULL;
+        return empty;
+    }
+
+    t_class component = part.classes[compo_index];
+    int sub_size = component.size;
+
+    // Vérification que la composante a des éléments
+    if (sub_size == 0 || component.index == NULL) {
+        t_matrix empty;
+        empty.size = 0;
+        empty.values = NULL;
+        return empty;
+    }
+
+    t_matrix sub_matrix = create_empty_matrix(sub_size);
+
+    // Remplissage
+    for (int i = 0; i < sub_size; i++){
+        for (int j = 0; j < sub_size; j++){
+            int orig_i = component.index[i] - 1;
+            int orig_j = component.index[j] - 1;
+            sub_matrix.values[i][j] = matrix.values[orig_i][orig_j];
+        }
+    }
+
+    return sub_matrix;
+}
+
+t_matrix stationary_distribution(t_matrix matrix, float epsilon, int max_iter){
+    if (matrix.size == 0 || matrix.values == NULL) {
+        return matrix;
+    }
+    
+    t_matrix current = copy_matrix(matrix);
+    t_matrix previous;
+    float diff;
+    int iteration = 1;
+    
+    printf("  M^1:\n");
+    print_matrix(current);
+    
+    do {
+        previous = current;
+        current = mult_matrix(copy_matrix(matrix), previous);
+        diff = diff_matrix(current, previous);
+        iteration++;
+        
+        // Afficher quelques étapes clés
+        if (iteration == 2 || iteration == 5 || iteration == 10 || 
+            iteration == 50 || iteration == 100 || diff < epsilon) {
+            printf("  M^%d (diff=%.6f):\n", iteration, diff);
+            print_matrix(current);
+        }
+        
+        free_matrix(previous);
+        
+        if (iteration >= max_iter) {
+            printf("  Convergence non atteinte après %d itérations\n", max_iter);
+            break;
+        }
+    } while (diff >= epsilon);
+    
+    if (diff < epsilon) {
+        printf("  => Distribution stationnaire (ligne 1): [");
+        for (int j = 0; j < current.size; j++) {
+            printf("%.4f", current.values[0][j]);
+            if (j < current.size - 1) printf(", ");
+        }
+        printf("]\n");
+    }
+    
+    return current;
+}
