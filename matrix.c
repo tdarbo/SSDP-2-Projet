@@ -33,11 +33,13 @@ t_matrix create_adj_matrix(t_adj_list list){
     return new_matrix;
 }
 
-void free_matrix(t_matrix matrix){
-    for(int i = 0; i < matrix.size; i++){
-        free(matrix.values[i]);
+void free_matrix(t_matrix* matrix){
+    for(int i = 0; i < matrix->size; i++){
+        free(matrix->values[i]);
     }
-    free(matrix.values);
+    free(matrix->values);
+    matrix->values = NULL;
+    matrix->size = 0;
 }
 
 t_matrix copy_matrix(t_matrix matrix){
@@ -58,7 +60,7 @@ t_matrix copy_matrix(t_matrix matrix){
     return new_matrix;
 }
 
-t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
+void mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
     int size = matrix_a.size;
     float temp;
     for (int i=0; i<size; i++){
@@ -70,7 +72,6 @@ t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
             matrix_a.values[i][j] = temp;
         }
     }
-    return matrix_a;
 }
 
 float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
@@ -87,7 +88,7 @@ float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
 }
 
 void print_matrix(t_matrix matrix){
-    printf("print matrix :\n");
+    printf("print matrix size %d :\n", matrix.size);
     if (matrix.size == 0 || matrix.values == NULL) {
         printf("(empty matrix)\n");
         return;
@@ -106,79 +107,44 @@ void print_matrix(t_matrix matrix){
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
     // Vérification que l'index de la composante est valide
     if (compo_index < 0 || compo_index >= part.size){
-        t_matrix empty;
-        empty.size = 0;
-        empty.values = NULL;
+        t_matrix empty = create_empty_matrix(0);
         return empty;
     }
-
     t_class component = part.classes[compo_index];
     int sub_size = component.size;
-
     // Vérification que la composante a des éléments
     if (sub_size == 0 || component.index == NULL) {
-        t_matrix empty;
-        empty.size = 0;
-        empty.values = NULL;
+        t_matrix empty = create_empty_matrix(0);
         return empty;
     }
-
     t_matrix sub_matrix = create_empty_matrix(sub_size);
-
     // Remplissage
     for (int i = 0; i < sub_size; i++){
+        int orig_i = component.index[i] - 1;
         for (int j = 0; j < sub_size; j++){
-            int orig_i = component.index[i] - 1;
             int orig_j = component.index[j] - 1;
             sub_matrix.values[i][j] = matrix.values[orig_i][orig_j];
         }
     }
-
     return sub_matrix;
 }
 
-t_matrix stationary_distribution(t_matrix matrix, float epsilon, int max_iter){
+t_matrix stationary_distribution(t_matrix matrix){
     if (matrix.size == 0 || matrix.values == NULL) {
         return matrix;
     }
-    
-    t_matrix current = copy_matrix(matrix);
-    t_matrix previous;
+    t_matrix copy = copy_matrix(matrix), prev;
     float diff;
     int iteration = 1;
-    
-    printf("  M^1:\n");
-    print_matrix(current);
-    
-    do {
-        previous = current;
-        current = mult_matrix(copy_matrix(matrix), previous);
-        diff = diff_matrix(current, previous);
+    do{
+        prev = copy_matrix(copy);
+        mult_matrix(copy, matrix);
+        diff = diff_matrix(copy, matrix);
+        free_matrix(&prev);
         iteration++;
-        
-        // Afficher quelques étapes clés
-        if (iteration == 2 || iteration == 5 || iteration == 10 || 
-            iteration == 50 || iteration == 100 || diff < epsilon) {
-            printf("  M^%d (diff=%.6f):\n", iteration, diff);
-            print_matrix(current);
-        }
-        
-        free_matrix(previous);
-        
-        if (iteration >= max_iter) {
-            printf("  Convergence non atteinte après %d itérations\n", max_iter);
-            break;
-        }
-    } while (diff >= epsilon);
-    
-    if (diff < epsilon) {
-        printf("  => Distribution stationnaire (ligne 1): [");
-        for (int j = 0; j < current.size; j++) {
-            printf("%.4f", current.values[0][j]);
-            if (j < current.size - 1) printf(", ");
-        }
-        printf("]\n");
+    }while (iteration <= MAX_ITERATIONS && diff >= EPSILON_CONVERGENCE);
+    if (diff < EPSILON_CONVERGENCE){
+        return copy;
     }
-    
-    return current;
+    return create_empty_matrix(0);
 }
