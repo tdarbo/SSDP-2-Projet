@@ -5,9 +5,6 @@
 #include "tarjan.h"
 #include "matrix.h"
 
-#define EPSILON_CONVERGENCE 0.0001
-#define MAX_ITERATIONS 1000
-
 int main(void) {
     printf("Adjacency List Example\n");
     t_adj_list* adj_list = list_import("../data/exemple_valid_step3.txt");
