@@ -20,9 +20,9 @@ struct s_matrix{
 
 t_matrix create_empty_matrix(int);
 t_matrix create_adj_matrix(t_adj_list);
-void free_matrix(t_matrix);
+void free_matrix(t_matrix*);
 t_matrix copy_matrix(t_matrix);
-t_matrix mult_matrix(t_matrix, t_matrix);
+void mult_matrix(t_matrix, t_matrix);
 float diff_matrix(t_matrix, t_matrix);
 void print_matrix(t_matrix);
 
@@ -48,6 +48,6 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
  * @param max_iter Maximum number of iterations.
  * @return t_matrix The converged matrix (stationary distribution in each row).
  */
-t_matrix stationary_distribution(t_matrix matrix, float epsilon, int max_iter);
+t_matrix stationary_distribution(t_matrix matrix);
 
 #endif //SSDP_2_PROJET_MATRIX_H
