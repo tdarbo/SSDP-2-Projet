@@ -62,7 +62,7 @@ t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
     return matrix_a;
 }
 
-int diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
+float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
     float val = 0, temp;
     int size = matrix_a.size;
     for (int i=0; i<size; i++){
