@@ -20,7 +20,7 @@ struct s_matrix{
 
 t_matrix create_empty_matrix(int);
 t_matrix create_adj_matrix(t_adj_list);
-void free_matrix(t_matrix);
+void free_matrix(t_matrix*);
 t_matrix copy_matrix(t_matrix);
 void mult_matrix(t_matrix, t_matrix);
 float diff_matrix(t_matrix, t_matrix);

@@ -33,11 +33,13 @@ t_matrix create_adj_matrix(t_adj_list list){
     return new_matrix;
 }
 
-void free_matrix(t_matrix matrix){
-    for(int i = 0; i < matrix.size; i++){
-        free(matrix.values[i]);
+void free_matrix(t_matrix* matrix){
+    for(int i = 0; i < matrix->size; i++){
+        free(matrix->values[i]);
     }
-    free(matrix.values);
+    free(matrix->values);
+    matrix->values = NULL;
+    matrix->size = 0;
 }
 
 t_matrix copy_matrix(t_matrix matrix){
@@ -86,7 +88,7 @@ float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
 }
 
 void print_matrix(t_matrix matrix){
-    printf("print matrix :\n");
+    printf("print matrix size %d :\n", matrix.size);
     if (matrix.size == 0 || matrix.values == NULL) {
         printf("(empty matrix)\n");
         return;
@@ -138,11 +140,11 @@ t_matrix stationary_distribution(t_matrix matrix){
         prev = copy_matrix(copy);
         mult_matrix(copy, matrix);
         diff = diff_matrix(copy, matrix);
-        free_matrix(prev);
+        free_matrix(&prev);
         iteration++;
     }while (iteration <= MAX_ITERATIONS && diff >= EPSILON_CONVERGENCE);
     if (diff < EPSILON_CONVERGENCE){
         return copy;
     }
-    return matrix;
+    return create_empty_matrix(0);
 }
