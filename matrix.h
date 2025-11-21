@@ -10,6 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define EPSILON_CONVERGENCE 0.0001
+#define MAX_ITERATIONS 1000
+
 struct s_matrix{
     int size;
     float** values;
