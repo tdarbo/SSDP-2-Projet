@@ -105,34 +105,25 @@ void print_matrix(t_matrix matrix){
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
     // Vérification que l'index de la composante est valide
     if (compo_index < 0 || compo_index >= part.size){
-        t_matrix empty;
-        empty.size = 0;
-        empty.values = NULL;
+        t_matrix empty = create_empty_matrix(0);
         return empty;
     }
-
     t_class component = part.classes[compo_index];
     int sub_size = component.size;
-
     // Vérification que la composante a des éléments
     if (sub_size == 0 || component.index == NULL) {
-        t_matrix empty;
-        empty.size = 0;
-        empty.values = NULL;
+        t_matrix empty = create_empty_matrix(0);
         return empty;
     }
-
     t_matrix sub_matrix = create_empty_matrix(sub_size);
-
     // Remplissage
     for (int i = 0; i < sub_size; i++){
+        int orig_i = component.index[i] - 1;
         for (int j = 0; j < sub_size; j++){
-            int orig_i = component.index[i] - 1;
             int orig_j = component.index[j] - 1;
             sub_matrix.values[i][j] = matrix.values[orig_i][orig_j];
         }
     }
-
     return sub_matrix;
 }
 
