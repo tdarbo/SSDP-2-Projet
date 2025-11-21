@@ -58,7 +58,7 @@ t_matrix copy_matrix(t_matrix matrix){
     return new_matrix;
 }
 
-t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
+void mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
     int size = matrix_a.size;
     float temp;
     for (int i=0; i<size; i++){
@@ -70,7 +70,6 @@ t_matrix mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
             matrix_a.values[i][j] = temp;
         }
     }
-    return matrix_a;
 }
 
 float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
@@ -137,48 +136,22 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
     return sub_matrix;
 }
 
-t_matrix stationary_distribution(t_matrix matrix, float epsilon, int max_iter){
+t_matrix stationary_distribution(t_matrix matrix){
     if (matrix.size == 0 || matrix.values == NULL) {
         return matrix;
     }
-    
-    t_matrix current = copy_matrix(matrix);
-    t_matrix previous;
+    t_matrix copy = copy_matrix(matrix), prev;
     float diff;
     int iteration = 1;
-    
-    printf("  M^1:\n");
-    print_matrix(current);
-    
-    do {
-        previous = current;
-        current = mult_matrix(copy_matrix(matrix), previous);
-        diff = diff_matrix(current, previous);
+    do{
+        prev = copy_matrix(copy);
+        mult_matrix(copy, matrix);
+        diff = diff_matrix(copy, matrix);
+        free_matrix(prev);
         iteration++;
-        
-        // Afficher quelques étapes clés
-        if (iteration == 2 || iteration == 5 || iteration == 10 || 
-            iteration == 50 || iteration == 100 || diff < epsilon) {
-            printf("  M^%d (diff=%.6f):\n", iteration, diff);
-            print_matrix(current);
-        }
-        
-        free_matrix(previous);
-        
-        if (iteration >= max_iter) {
-            printf("  Convergence non atteinte après %d itérations\n", max_iter);
-            break;
-        }
-    } while (diff >= epsilon);
-    
-    if (diff < epsilon) {
-        printf("  => Distribution stationnaire (ligne 1): [");
-        for (int j = 0; j < current.size; j++) {
-            printf("%.4f", current.values[0][j]);
-            if (j < current.size - 1) printf(", ");
-        }
-        printf("]\n");
+    }while (iteration <= MAX_ITERATIONS && diff >= EPSILON_CONVERGENCE);
+    if (diff < EPSILON_CONVERGENCE){
+        return copy;
     }
-    
-    return current;
+    return matrix;
 }
