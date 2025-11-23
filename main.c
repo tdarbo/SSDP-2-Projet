@@ -3,6 +3,7 @@
 #include "file_loader.h"
 #include "adjacency_list.h"
 #include "tarjan.h"
+#include "links.h"
 
 int main(void) {
     printf("Adjacency List Example\n");
@@ -15,6 +16,12 @@ int main(void) {
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
 
+    t_link_list class_links = find_inter_class_links(adj_list, partition);
+    print_links(class_links);
+
+    print_graph_characteristics(partition, class_links);
+
+    free_link_list(&class_links);
 
     free_adj_list(adj_list);
     return 0;

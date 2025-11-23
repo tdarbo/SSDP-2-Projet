@@ -30,4 +30,6 @@ t_partition tarjan(t_adj_list*);
 int min(int,int);
 
 
+
+
 #endif //SSDP_2_PROJET_TARJAN_H
