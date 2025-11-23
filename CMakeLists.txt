@@ -20,8 +20,6 @@ add_executable(SSDP_2_Projet main.c
         class.h
         tarjan.c
         tarjan.h
-        link.c
-        link.h
         links.c
         links.h
         hasse.h
