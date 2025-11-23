@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "class.h"
 
 t_partition create_partition()
 {
@@ -24,7 +25,17 @@ void print_partition(t_partition* p)
     }
 }
 
-void delete_partition(t_partition p)
+void delete_partition(t_partition* p)
 {
-    free(p.classes);
+    if (p == NULL || p->classes == NULL) return;
+    
+    // Libérer chaque classe individuellement
+    for (int i = 0; i < p->size; i++) {
+        delete_class(&(p->classes[i]));
+    }
+    
+    // Libérer le tableau de classes
+    free(p->classes);
+    p->classes = NULL;
+    p->size = 0;
 }
