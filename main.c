@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h> // Nécessaire pour exit()
 #include "list.h"
 #include "file_loader.h"
 #include "adjacency_list.h"
@@ -30,14 +31,14 @@ t_adj_list* get_adj_list_selector() {
     printf("====== SELECTIONNEZ UN FICHIER A CHARGER ======\n");
 
     while (FILES[i] != NULL) {
-        printf("  [%d] %s\n",i,FILES[i]);
+        printf("  [%d] %s\n", i, FILES[i]);
         i++;
     }
 
     printf("Saisissez votre choix de (0 a %d) : ", i - 1);
 
-    if (scanf("%d",&choice) != 1 || choice < 0 || choice >= i) {
-        printf("\nErreur ; Choix invalide. Chargement de %s.",FILES[0]);
+    if (scanf("%d", &choice) != 1 || choice < 0 || choice >= i) {
+        printf("\nErreur ; Choix invalide. Chargement de %s.", FILES[0]);
         choice = 0;
     }
 
@@ -47,7 +48,7 @@ t_adj_list* get_adj_list_selector() {
     t_adj_list* adj_list = list_import(SELECTED_FILE);
 
     if (adj_list == NULL) {
-        printf("Erreur critique : Impossible de charger %s", SELECTED_FILE);
+        printf("Erreur critique : Impossible de charger %s\n", SELECTED_FILE);
         exit(400);
     }
     printf(" -> Fichier %s charge !\n", SELECTED_FILE);
@@ -68,14 +69,14 @@ int test_selector() {
     printf("====== SELECTIONNEZ UN TEST A EFFECTUER ======\n");
 
     while (OPTIONS[i] != NULL) {
-        printf("  [%d] %s\n",i,OPTIONS[i]);
+        printf("  [%d] %s\n", i, OPTIONS[i]);
         i++;
     }
 
     printf("Saisissez votre choix de (0 a %d) : ", i - 1);
 
-    if (scanf("%d",&choice) != 1 || choice < 0 || choice >= i) {
-        printf("\nErreur ; Choix invalide. Lancement de %s.",OPTIONS[0]);
+    if (scanf("%d", &choice) != 1 || choice < 0 || choice >= i) {
+        printf("\nErreur ; Choix invalide. Lancement de %s.", OPTIONS[0]);
         choice = 0;
     }
 
@@ -106,12 +107,9 @@ void test_partie_1(t_adj_list* adj_list) {
     printf("\nETAPE III (Export vers mermaid) : \n(1.III)\n");
     generate_mermaid_file(adj_list, "../export/test_1.txt");
 
-    free_adj_list(adj_list);
-
     printf("\n=================================================\n");
-    printf("===================== FIN =======================\n");
+    printf("================== FIN P1 =======================\n");
     printf("=================================================\n");
-
 }
 
 void test_partie_2(t_adj_list* adj_list) {
@@ -135,29 +133,27 @@ void test_partie_2(t_adj_list* adj_list) {
     print_graph_characteristics(partition, class_links);
 
     free_link_list(&class_links);
-    free_adj_list(adj_list);
 
     printf("\n=================================================\n");
-    printf("===================== FIN =======================\n");
+    printf("================== FIN P2 =======================\n");
     printf("=================================================\n");
-
 }
 
 void test_partie_3(t_adj_list* adj_list) {
 
     printf("\n=================================================\n");
-    printf("================== PARTIE 2 =====================\n");
+    printf("================== PARTIE 3 =====================\n");
     printf("=================================================\n");
 
     printf("\nETAPE I (calcul de matrices) : \n(3.I)\n");
     t_matrix matrix = create_adj_matrix(*adj_list);
-    t_matrix copy = copy_matrix(matrix), copy_2 = copy_matrix(matrix);;
-    for (int i = 0; i < 2; i++)
-    {
+    t_matrix copy = copy_matrix(matrix);
+    t_matrix copy_2 = copy_matrix(matrix);
+
+    for (int i = 0; i < 2; i++) {
         mult_matrix(copy, matrix);
     }
-    for (int i = 0; i < 6; i++)
-    {
+    for (int i = 0; i < 6; i++) {
         mult_matrix(copy_2, matrix);
     }
     printf("affichage de la matrice M :\n");
@@ -166,11 +162,14 @@ void test_partie_3(t_adj_list* adj_list) {
     print_matrix(copy);
     printf("affichage de la matrice M^7 :\n");
     print_matrix(copy_2);
+
     free_matrix(&copy);
     free_matrix(&copy_2);
 
     printf("\nETAPE II (calcul des distributions stationnaires des classes) : \n(3.II)\n");
+
     t_partition partition = tarjan(adj_list);
+
     for (int i = 0; i < partition.size; i++) {
         printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
         t_matrix sub = subMatrix(matrix, partition, i);
@@ -178,22 +177,28 @@ void test_partie_3(t_adj_list* adj_list) {
             printf("  Classe vide\n");
             continue;
         }
-        t_matrix result = stationary_distribution(sub);
+
         printf("Affichage de la sous matrice :\n");
         print_matrix(sub);
+
+        t_matrix result = stationary_distribution(sub);
+
         printf("Affichage du resultat :\n");
         if (result.size == 0 && sub.size != 0){
             printf("Le critere ne fonctionne pas sur cette sous matrice.\n");
-        }else{
+        } else {
             print_matrix(result);
         }
+
         free_matrix(&sub);
         free_matrix(&result);
     }
+
     free_matrix(&matrix);
 
+
     printf("\n=================================================\n");
-    printf("===================== FIN =======================\n");
+    printf("================== FIN P3 =======================\n");
     printf("=================================================\n");
 }
 
@@ -206,93 +211,37 @@ int main(void) {
 
         case 0: {
             test_partie_1(adj_list);
-            return 0;
+            break;
         }
 
         case 1 : {
             test_partie_2(adj_list);
-            return 0;
+            break;
         }
 
         case 2 : {
             test_partie_3(adj_list);
-            return 0;
+            break;
         }
 
         case 3 : {
-                test_partie_1(adj_list);
-                test_partie_2(adj_list);
-                test_partie_3(adj_list);
-            return 0;
+            test_partie_1(adj_list);
+            test_partie_2(adj_list);
+            test_partie_3(adj_list);
+            break;
         }
 
         default: {
-            printf("Impossible de charger un test. Abandon");
+            printf("Impossible de charger un test. Abandon\n");
+            free_adj_list(adj_list);
             return 400;
         }
-
     }
 
-    /*
-    printf("Adjacency List Example\n");
-    t_adj_list* adj_list = list_import("../data/exemple_valid_step3.txt");
-    printf("Printlist:\n");
-    print_adj_list(adj_list);
-    validate_adj_list(adj_list);
-    generate_mermaid_file(adj_list, "../export/graph.txt");
 
-    t_partition partition = tarjan(adj_list);
-    print_partition(&partition);
-
-    // Generate Hasse diagram
-    t_link_list links = find_inter_class_links(adj_list, partition);
-    printf("\n=== Liens inter-classes avant reduction ===\n");
-    print_links(links);
-    remove_transitive_links(&links);
-    printf("\n=== Diagramme de Hasse (liens reduits) ===\n");
-    print_links(links);
-    generate_hasse_mermaid_file(&links, "../export/hasse_diagram.txt");
-    free_link_list(&links);
-
-
-    printf("\n=== Test de subMatrix ===\n");
-    for (int i = 0; i < partition.size; i++) {
-        printf("\nSous-matrice pour la classe %d (taille: %d):\n", i, partition.classes[i].size);
-        t_matrix sub_mat = subMatrix(matrix, partition, i);
-        if (sub_mat.size > 0) {
-            print_matrix(sub_mat);
-            free_matrix(&sub_mat);
-        }
-    }
-
-    // Calcul des distributions stationnaires par classe
-    printf("\n=== Distributions stationnaires par classe ===\n");
-
-    for (int i = 0; i < partition.size; i++) {
-        printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
-
-        t_matrix sub = subMatrix(matrix, partition, i); //Synthax error
-        if (sub.size == 0) {
-            printf("  Classe vide\n");
-            continue;
-        }
-        t_matrix result = stationary_distribution(sub);
-        printf("Sous-matrice => ");
-        print_matrix(sub);
-        free_matrix(&sub);
-        printf("Resultat => ");
-        print_matrix(result);
-        free_matrix(&result);
-    }
-    t_link_list class_links = find_inter_class_links(adj_list, partition);
-    print_links(class_links);
-
-    print_graph_characteristics(partition, class_links);
-
-    free_link_list(&class_links);
-    delete_partition(&partition);
-
+    printf("\n[System] Liberation de la memoire du graphe...\n");
     free_adj_list(adj_list);
+
+
     return 0;
-    */
 }
