@@ -5,6 +5,7 @@
 #include "tarjan.h"
 #include "links.h"
 #include "matrix.h"
+#include "hasse.h"
 
 int main(void) {
     printf("Adjacency List Example\n");
@@ -18,6 +19,16 @@ int main(void) {
 
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
+
+    // Generate Hasse diagram
+    t_link_list links = find_inter_class_links(adj_list, partition);
+    printf("\n=== Liens inter-classes avant reduction ===\n");
+    print_links(links);
+    remove_transitive_links(&links);
+    printf("\n=== Diagramme de Hasse (liens reduits) ===\n");
+    print_links(links);
+    generate_hasse_mermaid_file(&links, "../export/hasse_diagram.txt");
+    free_link_list(&links);
 
 /*
     printf("\n=== Test de subMatrix ===\n");
