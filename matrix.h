@@ -91,8 +91,6 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
  * successive powers until convergence.
  *
  * @param matrix The transition matrix.
- * @param epsilon The convergence threshold.
- * @param max_iter Maximum number of iterations.
  * @return t_matrix The converged matrix (stationary distribution in each row).
  */
 t_matrix stationary_distribution(t_matrix matrix);
