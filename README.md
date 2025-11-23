@@ -284,3 +284,6 @@ Projet académique - SSDP-2
 - [Chaînes de Markov](https://fr.wikipedia.org/wiki/Cha%C3%AEne_de_Markov)
 - [Diagramme de Hasse](https://fr.wikipedia.org/wiki/Diagramme_de_Hasse)
 - [Mermaid Documentation](https://mermaid.js.org/)
+
+
+<img width="254" height="240" alt="Albert" src="https://github.com/user-attachments/assets/a7163230-30c0-45ae-9191-1be722bc2d2c" />
