@@ -26,4 +26,6 @@ add_executable(SSDP_2_Projet main.c
         links.h
         hasse.h
         hasse.c
+        matrix.c
+        matrix.h
 )
