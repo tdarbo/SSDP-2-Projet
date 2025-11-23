@@ -21,6 +21,7 @@ t_adj_list* get_adj_list_selector() {
         "../data/exemple3.txt",
         "../data/exemple4_2check.txt",
         "../data/exemple_hasse1.txt",
+        "../data/exemple_meteo.txt",
         "../data/exemple_scc1.txt",
         "../data/exemple_valid_step3.txt",
         NULL
@@ -84,7 +85,7 @@ int test_selector() {
     return choice;
 }
 
-void test_etape_1(t_adj_list* adj_list) {
+void test_partie_1(t_adj_list* adj_list) {
 
     printf("\n=================================================\n");
     printf("================== PARTIE 1 =====================\n");
@@ -113,7 +114,7 @@ void test_etape_1(t_adj_list* adj_list) {
 
 }
 
-void test_etape_2(t_adj_list* adj_list) {
+void test_partie_2(t_adj_list* adj_list) {
 
     printf("\n=================================================\n");
     printf("================== PARTIE 2 =====================\n");
@@ -142,10 +143,58 @@ void test_etape_2(t_adj_list* adj_list) {
 
 }
 
-void test_etape_3(t_adj_list* adj_list) {
+void test_partie_3(t_adj_list* adj_list) {
 
+    printf("\n=================================================\n");
+    printf("================== PARTIE 2 =====================\n");
+    printf("=================================================\n");
 
+    printf("\nETAPE I (calcul de matrices) : \n(3.I)\n");
+    t_matrix matrix = create_adj_matrix(*adj_list);
+    t_matrix copy = copy_matrix(matrix), copy_2 = copy_matrix(matrix);;
+    for (int i = 0; i < 2; i++)
+    {
+        mult_matrix(copy, matrix);
+    }
+    for (int i = 0; i < 6; i++)
+    {
+        mult_matrix(copy_2, matrix);
+    }
+    printf("affichage de la matrice M :\n");
+    print_matrix(matrix);
+    printf("affichage de la matrice M^3 :\n");
+    print_matrix(copy);
+    printf("affichage de la matrice M^7 :\n");
+    print_matrix(copy_2);
+    free_matrix(&copy);
+    free_matrix(&copy_2);
 
+    printf("\nETAPE II (calcul des distributions stationnaires des classes) : \n(3.II)\n");
+    t_partition partition = tarjan(adj_list);
+    for (int i = 0; i < partition.size; i++) {
+        printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
+        t_matrix sub = subMatrix(matrix, partition, i);
+        if (sub.size == 0) {
+            printf("  Classe vide\n");
+            continue;
+        }
+        t_matrix result = stationary_distribution(sub);
+        printf("Affichage de la sous matrice :\n");
+        print_matrix(sub);
+        printf("Affichage du resultat :\n");
+        if (result.size == 0 && sub.size != 0){
+            printf("Le critere ne fonctionne pas sur cette sous matrice.\n");
+        }else{
+            print_matrix(result);
+        }
+        free_matrix(&sub);
+        free_matrix(&result);
+    }
+    free_matrix(&matrix);
+
+    printf("\n=================================================\n");
+    printf("===================== FIN =======================\n");
+    printf("=================================================\n");
 }
 
 int main(void) {
@@ -156,17 +205,17 @@ int main(void) {
     switch (test_id) {
 
         case 0: {
-            test_etape_1(adj_list);
+            test_partie_1(adj_list);
             return 0;
         }
 
         case 1 : {
-            test_etape_2(adj_list);
+            test_partie_2(adj_list);
             return 0;
         }
 
         case 2 : {
-            test_etape_3(adj_list);
+            test_partie_3(adj_list);
             return 0;
         }
 
