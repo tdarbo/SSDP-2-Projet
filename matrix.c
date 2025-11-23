@@ -88,7 +88,7 @@ float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
 }
 
 void print_matrix(t_matrix matrix){
-    printf("print matrix size %d :\n", matrix.size);
+    //printf("print matrix of size %d :\n", matrix.size);
     if (matrix.size == 0 || matrix.values == NULL) {
         printf("(empty matrix)\n");
         return;
@@ -139,7 +139,7 @@ t_matrix stationary_distribution(t_matrix matrix){
     do{
         prev = copy_matrix(copy);
         mult_matrix(copy, matrix);
-        diff = diff_matrix(copy, matrix);
+        diff = diff_matrix(copy, prev);
         free_matrix(&prev);
         iteration++;
     }while (iteration <= MAX_ITERATIONS && diff >= EPSILON_CONVERGENCE);
