@@ -42,13 +42,13 @@ int* create_vertex_to_class_map(t_partition partition, int num_vertices) {
     return map;
 }
 
-BOOL link_exists(t_link_list list, int src, int tgt) {
+int link_exists(t_link_list list, int src, int tgt) {
     for (int i = 0; i < list.size; i++) {
         if (list.links[i].source == src && list.links[i].target == tgt) {
-            return TRUE;
+            return 1;
         }
     }
-    return FALSE;
+    return 0;
 }
 
 void add_link(t_link_list* list, int src, int tgt) {
