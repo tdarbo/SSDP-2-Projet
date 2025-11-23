@@ -3,22 +3,34 @@
 #include "file_loader.h"
 #include "adjacency_list.h"
 #include "tarjan.h"
+#include "links.h"
+
 #include "matrix.h"
+#include "hasse.h"
 
 int main(void) {
+    /*
     printf("Adjacency List Example\n");
     t_adj_list* adj_list = list_import("../data/exemple_valid_step3.txt");
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
-    t_matrix matrix = create_adj_matrix(*adj_list);
-    print_matrix(matrix);
     generate_mermaid_file(adj_list, "../export/graph.txt");
 
     t_partition partition = tarjan(adj_list);
     print_partition(&partition);
 
-/*
+    // Generate Hasse diagram
+    t_link_list links = find_inter_class_links(adj_list, partition);
+    printf("\n=== Liens inter-classes avant reduction ===\n");
+    print_links(links);
+    remove_transitive_links(&links);
+    printf("\n=== Diagramme de Hasse (liens reduits) ===\n");
+    print_links(links);
+    generate_hasse_mermaid_file(&links, "../export/hasse_diagram.txt");
+    free_link_list(&links);
+
+
     printf("\n=== Test de subMatrix ===\n");
     for (int i = 0; i < partition.size; i++) {
         printf("\nSous-matrice pour la classe %d (taille: %d):\n", i, partition.classes[i].size);
@@ -28,14 +40,14 @@ int main(void) {
             free_matrix(&sub_mat);
         }
     }
-*/
+
     // Calcul des distributions stationnaires par classe
     printf("\n=== Distributions stationnaires par classe ===\n");
     
     for (int i = 0; i < partition.size; i++) {
         printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
         
-        t_matrix sub = subMatrix(matrix, partition, i);
+        t_matrix sub = subMatrix(matrix, partition, i); //Synthax error
         if (sub.size == 0) {
             printf("  Classe vide\n");
             continue;
@@ -48,8 +60,15 @@ int main(void) {
         print_matrix(result);
         free_matrix(&result);
     }
+    t_link_list class_links = find_inter_class_links(adj_list, partition);
+    print_links(class_links);
 
-    free_matrix(&matrix);
+    print_graph_characteristics(partition, class_links);
+
+    free_link_list(&class_links);
+    delete_partition(&partition);
+
     free_adj_list(adj_list);
     return 0;
+    */
 }

@@ -40,6 +40,8 @@ t_vertex* get_vertex(t_vertex_list* list, int id) {
     return &list->vertex[id - 1];
 }
 
+
+
 void parcours(
     t_vertex* v,
     int* num,
@@ -123,3 +125,5 @@ int min(const int a,const int b)
 {
     return a < b ? a : b;
 }
+
+
