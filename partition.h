@@ -18,5 +18,6 @@ struct s_partition {
 
 t_partition create_partition();
 void print_partition(t_partition*);
+void delete_partition(t_partition*);
 
 #endif //SSDP_2_PROJET_PARTITION_H
