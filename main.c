@@ -220,7 +220,9 @@ int main(void) {
         }
 
         case 3 : {
-            //TODO All tests
+                test_partie_1(adj_list);
+                test_partie_2(adj_list);
+                test_partie_3(adj_list);
             return 0;
         }
 
