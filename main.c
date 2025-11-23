@@ -4,6 +4,7 @@
 #include "adjacency_list.h"
 #include "tarjan.h"
 #include "links.h"
+
 #include "matrix.h"
 #include "hasse.h"
 
@@ -13,8 +14,6 @@ int main(void) {
     printf("Printlist:\n");
     print_adj_list(adj_list);
     validate_adj_list(adj_list);
-    t_matrix matrix = create_adj_matrix(*adj_list);
-    print_matrix(matrix);
     generate_mermaid_file(adj_list, "../export/graph.txt");
 
     t_partition partition = tarjan(adj_list);
@@ -60,8 +59,14 @@ int main(void) {
         print_matrix(result);
         free_matrix(&result);
     }
+    t_link_list class_links = find_inter_class_links(adj_list, partition);
+    print_links(class_links);
 
-    free_matrix(&matrix);
+    print_graph_characteristics(partition, class_links);
+
+    free_link_list(&class_links);
+    delete_partition(&partition);
+
     free_adj_list(adj_list);
     return 0;
 }

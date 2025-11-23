@@ -17,5 +17,6 @@ struct s_class {
 
 t_class create_class(int);
 void print_class(const t_class*);
+void delete_class(t_class*);
 
 #endif //SSDP_2_PROJET_CLASS_H
