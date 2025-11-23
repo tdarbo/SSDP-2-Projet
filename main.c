@@ -9,6 +9,7 @@
 #include "hasse.h"
 
 int main(void) {
+    /*
     printf("Adjacency List Example\n");
     t_adj_list* adj_list = list_import("../data/exemple_valid_step3.txt");
     printf("Printlist:\n");
@@ -29,7 +30,7 @@ int main(void) {
     generate_hasse_mermaid_file(&links, "../export/hasse_diagram.txt");
     free_link_list(&links);
 
-/*
+
     printf("\n=== Test de subMatrix ===\n");
     for (int i = 0; i < partition.size; i++) {
         printf("\nSous-matrice pour la classe %d (taille: %d):\n", i, partition.classes[i].size);
@@ -39,14 +40,14 @@ int main(void) {
             free_matrix(&sub_mat);
         }
     }
-*/
+
     // Calcul des distributions stationnaires par classe
     printf("\n=== Distributions stationnaires par classe ===\n");
     
     for (int i = 0; i < partition.size; i++) {
         printf("\nClasse %d (taille: %d): \n", i, partition.classes[i].size);
         
-        t_matrix sub = subMatrix(matrix, partition, i);
+        t_matrix sub = subMatrix(matrix, partition, i); //Synthax error
         if (sub.size == 0) {
             printf("  Classe vide\n");
             continue;
@@ -69,4 +70,5 @@ int main(void) {
 
     free_adj_list(adj_list);
     return 0;
+    */
 }
