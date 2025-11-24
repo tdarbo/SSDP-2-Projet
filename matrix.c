@@ -61,17 +61,19 @@ t_matrix copy_matrix(t_matrix matrix){
 }
 
 void mult_matrix(t_matrix matrix_a, t_matrix matrix_b){
+    t_matrix copy = copy_matrix(matrix_a);
     int size = matrix_a.size;
     float temp;
     for (int i=0; i<size; i++){
         for (int j=0; j<size; j++){
             temp = 0;
             for (int k=0; k<size; k++){
-                temp += matrix_a.values[k][j] * matrix_b.values[i][k];
+                temp += copy.values[k][j] * matrix_b.values[i][k];
             }
             matrix_a.values[i][j] = temp;
         }
     }
+    free_matrix(&copy);
 }
 
 float diff_matrix(t_matrix matrix_a, t_matrix matrix_b){
@@ -95,7 +97,7 @@ void print_matrix(t_matrix matrix){
     }
     for (int i = 0; i < matrix.size; i++){
         for (int j = 0; j < matrix.size; j++){
-            printf("%.2f", matrix.values[i][j]);
+            printf("%.2f", matrix.values[j][i]);
             if (j < matrix.size - 1) {
                 printf(" | ");
             }
