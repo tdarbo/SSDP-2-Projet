@@ -207,17 +207,19 @@ void test_partie_3(t_adj_list* adj_list) {
 void projet_proba(t_adj_list* adj_list)
 {
     t_matrix matrix = create_adj_matrix(*adj_list);
+    // puissance 3
     t_matrix copy = copy_matrix(matrix);
     for (int i = 0; i < 2; i++)
     {
         mult_matrix(copy, matrix);
     }
+    //t_matrix copy = stationary_distribution(matrix);
     printf("\n=================================================\n");
     printf("================== Projet =======================\n");
     printf("=================================================\n");
     print_matrix(matrix);
     printf("\n=================================================\n");
-    printf("================= Puissance ======================\n");
+    printf("================= Puissance =====================\n");
     printf("=================================================\n");
     print_matrix(copy);
     float* list = calloc(matrix.size, sizeof(float));
@@ -227,7 +229,7 @@ void projet_proba(t_adj_list* adj_list)
     printf("\n=================================================\n");
     printf("================== Vecteur ======================\n");
     printf("=================================================\n");
-    print_matrix(copy);
+    print_vector(copy);
     free(list);
     free_matrix(&matrix);
     free_matrix(&copy);

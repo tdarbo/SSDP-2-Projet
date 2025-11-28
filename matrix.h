@@ -95,5 +95,6 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
  */
 t_matrix stationary_distribution(t_matrix matrix);
 t_matrix vector_matrix(float*, int);
+void print_vector(t_matrix);
 
 #endif //SSDP_2_PROJET_MATRIX_H
