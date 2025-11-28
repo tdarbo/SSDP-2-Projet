@@ -207,9 +207,10 @@ void test_partie_3(t_adj_list* adj_list) {
 void projet_proba(t_adj_list* adj_list)
 {
     t_matrix matrix = create_adj_matrix(*adj_list);
-    // puissance 3
+    // puissance nb + 1
+    int nb = 2;
     t_matrix copy = copy_matrix(matrix);
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < nb; i++)
     {
         mult_matrix(copy, matrix);
     }
