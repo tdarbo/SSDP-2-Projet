@@ -150,3 +150,13 @@ t_matrix stationary_distribution(t_matrix matrix){
     }
     return create_empty_matrix(0);
 }
+
+t_matrix vector_matrix(float* vect, int size)
+{
+    t_matrix new_matrix = create_empty_matrix(size);
+    for (int i=0; i<size; i++)
+    {
+        new_matrix.values[0][i] = vect[i];
+    }
+    return new_matrix;
+}
