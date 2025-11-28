@@ -207,6 +207,7 @@ void test_partie_3(t_adj_list* adj_list) {
 void projet_proba(t_adj_list* adj_list)
 {
     t_matrix matrix = create_adj_matrix(*adj_list);
+    generate_mermaid_file(adj_list, "../export/test_1.txt");
     // puissance nb + 1
     int nb = 2;
     t_matrix copy = copy_matrix(matrix);
