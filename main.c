@@ -224,6 +224,7 @@ void projet_proba(t_adj_list* adj_list)
     printf("=================================================\n");
     print_matrix(copy);
     float* list = calloc(matrix.size, sizeof(float));
+    //etat
     list[1] = 1;
     t_matrix vect = vector_matrix(list,matrix.size);
     mult_matrix(copy, vect);
