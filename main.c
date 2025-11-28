@@ -25,6 +25,7 @@ t_adj_list* get_adj_list_selector() {
         "../data/exemple_meteo.txt",
         "../data/exemple_scc1.txt",
         "../data/exemple_valid_step3.txt",
+        "../data/matrice_proba.txt",
         NULL
     };
 
@@ -63,6 +64,7 @@ int test_selector() {
         "Partie 2",
         "Partie 3",
         "Toutes les parties",
+        "Proba",
         NULL
     };
 
@@ -202,6 +204,39 @@ void test_partie_3(t_adj_list* adj_list) {
     printf("=================================================\n");
 }
 
+void projet_proba(t_adj_list* adj_list)
+{
+    t_matrix matrix = create_adj_matrix(*adj_list);
+    t_matrix copy = copy_matrix(matrix);
+    for (int i = 0; i < 2; i++)
+    {
+        mult_matrix(copy, matrix);
+    }
+    printf("\n=================================================\n");
+    printf("================== Projet =======================\n");
+    printf("=================================================\n");
+    print_matrix(matrix);
+    printf("\n=================================================\n");
+    printf("================= Puissance ======================\n");
+    printf("=================================================\n");
+    print_matrix(copy);
+    float* list = calloc(matrix.size, sizeof(float));
+    list[1] = 1;
+    t_matrix vect = vector_matrix(list,matrix.size);
+    mult_matrix(copy, vect);
+    printf("\n=================================================\n");
+    printf("================== Vecteur ======================\n");
+    printf("=================================================\n");
+    print_matrix(copy);
+    free(list);
+    free_matrix(&matrix);
+    free_matrix(&copy);
+    free_matrix(&vect);
+    printf("\n=================================================\n");
+    printf("================== FIN PR =======================\n");
+    printf("=================================================\n");
+}
+
 int main(void) {
     t_adj_list* adj_list = get_adj_list_selector();
 
@@ -230,6 +265,11 @@ int main(void) {
             test_partie_3(adj_list);
             break;
         }
+    case 4 :
+            {
+                projet_proba(adj_list);
+                break;
+            }
 
         default: {
             printf("Impossible de charger un test. Abandon\n");

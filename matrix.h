@@ -94,5 +94,6 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
  * @return t_matrix The converged matrix (stationary distribution in each row).
  */
 t_matrix stationary_distribution(t_matrix matrix);
+t_matrix vector_matrix(float*, int);
 
 #endif //SSDP_2_PROJET_MATRIX_H
