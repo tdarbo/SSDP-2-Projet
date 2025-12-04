@@ -194,3 +194,29 @@ void print_vector(t_matrix vector)
     }
     printf("%.2f\n", vector.values[0][vector.size-1]);
 }
+
+
+int states_q = 5;
+int set_states[5] = {2, 5, 12, 21, 25};  // indices d’états (1-based dans l’énoncé)
+
+t_matrix build_initial_vector(float *probas, int n, int total_size, int* set_states)
+{
+    float *vect = calloc(total_size, sizeof(float));
+
+    for (int i = 0; i < n; i++) {
+        int idx = set_states[i] - 1;  // passage en 0-based
+        vect[idx] = probas[i];
+    }
+
+    t_matrix vec = vector_matrix(vect, total_size);
+    free(vect);
+    return vec;
+}
+
+// Compare numériquement 2 vecteurs
+float diff_vectors(t_matrix v1, t_matrix v2)
+{
+    return diff_matrix(v1, v2);
+}
+
+

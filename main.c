@@ -247,6 +247,24 @@ void projet_proba(t_adj_list* adj_list)
     printf("=================================================\n");
 }
 
+void proba_ex_3(t_adj_list* adj_list) {
+    t_matrix matrix = create_adj_matrix(*adj_list);
+    generate_mermaid_file(adj_list, "../export/test_1.txt");
+    int states_q = 5;
+    int set_states[5] = {2, 5, 12, 21, 25};  // indices d’états (1-based dans l’énoncé)
+    float a = 0.4, b = 0.1, c = 0.2, d = 0.1, e = 0.2;  // Exemple
+    float probas_q3[5] = {a, b, c, d, e};
+
+    float a2=0.1, b2=0.2, c2=0.3, d2=0.2, e2=0.2;
+    float probas2[5] = {a2, b2, c2, d2, e2};
+
+    t_matrix v0_q3 = build_initial_vector(probas_q3, 5, matrix.size, set_states);
+    t_matrix q32 = build_initial_vector(probas2,5, matrix.size, set_states);
+    print_vector(v0_q3);
+    print_vector(q32);
+    printf("Différence : %.2f", diff_matrix(v0_q3, q32));
+}
+
 int main(void) {
     t_adj_list* adj_list = get_adj_list_selector();
 
@@ -277,7 +295,7 @@ int main(void) {
         }
     case 4 :
             {
-                projet_proba(adj_list);
+            projet_proba(adj_list);
                 break;
             }
 
