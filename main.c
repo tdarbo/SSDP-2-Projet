@@ -211,9 +211,16 @@ void projet_proba(t_adj_list* adj_list)
 
     float* list = calloc(matrix.size, sizeof(float));
     //etat
-    list[1] = 1;
-    //list[1] = list[4] = list[11] = list[20] = list[24] = 0.2;
+    //list[1] = 1;
+    //list[1] = list[4] = list[11] = list[20] = list[24] = 1.0/5.0;
+    //list[7] = 1;
+    //list[7] = list[8] = list[15] = 1.0/3.0;
+    //list[13] = 1;
+    //list[13] = list[9] = list[18] = list[21] = list[23] = 1.0/5.0;
     //list[5] = 1;
+    //list[5] = list[16] = list[19] = 1.0/3.0;
+    //list[2] = 1;
+    //list[2] = list[6] = list[22] = 1.0/3.0;
     t_matrix vect = vector_matrix(list,matrix.size);
 
     // puissance nb + 1
