@@ -208,34 +208,39 @@ void projet_proba(t_adj_list* adj_list)
 {
     t_matrix matrix = create_adj_matrix(*adj_list);
     generate_mermaid_file(adj_list, "../export/test_1.txt");
+
+    float* list = calloc(matrix.size, sizeof(float));
+    //etat
+    //list[1] = 1;
+    //list[1] = list[4] = list[11] = list[20] = list[24] = 0.2;
+    //list[5] = 1;
+    t_matrix vect = vector_matrix(list,matrix.size);
+
     // puissance nb + 1
-    int nb = 2;
+    /*int nb = 9;
     t_matrix copy = copy_matrix(matrix);
     for (int i = 0; i < nb; i++)
     {
         mult_matrix(copy, matrix);
     }
-    //t_matrix copy = stationary_distribution(matrix);
+    mult_matrix(copy, vect);*/
+
+    t_matrix copy = stationary_vector(matrix, vect);
+
     printf("\n=================================================\n");
     printf("================== Projet =======================\n");
     printf("=================================================\n");
-    print_matrix(matrix);
-    printf("\n=================================================\n");
-    printf("================= Puissance =====================\n");
-    printf("=================================================\n");
-    print_matrix(copy);
-    float* list = calloc(matrix.size, sizeof(float));
-    //etat
-    list[1] = 1;
-    t_matrix vect = vector_matrix(list,matrix.size);
-    mult_matrix(copy, vect);
-    printf("\n=================================================\n");
-    printf("================== Vecteur ======================\n");
-    printf("=================================================\n");
-    print_vector(copy);
-    free(list);
+    print_vector(vect);
+    if (copy.size == 0 && matrix.size != 0){
+        printf("Le critere ne fonctionne pas sur cette etat.\n");
+    } else {
+        //print_matrix(copy_puiss);
+        printf("Le resultat est :\n");
+        print_vector(copy);
+    }
     free_matrix(&matrix);
     free_matrix(&copy);
+    free(list);
     free_matrix(&vect);
     printf("\n=================================================\n");
     printf("================== FIN PR =======================\n");

@@ -151,6 +151,31 @@ t_matrix stationary_distribution(t_matrix matrix){
     return create_empty_matrix(0);
 }
 
+t_matrix stationary_vector(t_matrix matrix, t_matrix vector){
+    if (matrix.size == 0 || matrix.values == NULL) {
+        return matrix;
+    }
+    t_matrix copy = copy_matrix(vector), prev, copy_mat = copy_matrix(matrix);
+    float diff;
+    int iteration = 1;
+    do{
+        prev = copy_matrix(copy);
+        mult_matrix(copy_mat, copy);
+        free_matrix(&copy);
+        copy = copy_matrix(copy_mat);
+        free_matrix(&copy_mat);
+        copy_mat = copy_matrix(matrix);
+        diff = diff_matrix(copy, prev);
+        free_matrix(&prev);
+        iteration++;
+    }while (iteration <= MAX_ITERATIONS && diff >= EPSILON_CONVERGENCE);
+    free_matrix(&copy_mat);
+    if (diff < EPSILON_CONVERGENCE){
+        return copy;
+    }
+    return create_empty_matrix(0);
+}
+
 t_matrix vector_matrix(float* vect, int size)
 {
     t_matrix new_matrix = create_empty_matrix(size);
