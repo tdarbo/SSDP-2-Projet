@@ -190,7 +190,7 @@ void print_vector(t_matrix vector)
 {
     for (int i=0; i<vector.size-1; i++)
     {
-        printf("%.2f | ", vector.values[0][i]);
+        printf("%.3f | ", vector.values[0][i]);
     }
-    printf("%.2f\n", vector.values[0][vector.size-1]);
+    printf("%.3f\n", vector.values[0][vector.size-1]);
 }

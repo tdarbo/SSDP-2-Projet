@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define EPSILON_CONVERGENCE 0.01
+#define EPSILON_CONVERGENCE 0.001
 #define MAX_ITERATIONS 1000
 
 struct s_matrix{
