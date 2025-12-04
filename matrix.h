@@ -98,4 +98,5 @@ t_matrix vector_matrix(float*, int);
 t_matrix stationary_vector(t_matrix, t_matrix);
 void print_vector(t_matrix);
 
+t_matrix build_initial_vector(float *probas, int n, int total_size, int* set_states);
 #endif //SSDP_2_PROJET_MATRIX_H
