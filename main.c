@@ -209,18 +209,24 @@ void projet_proba(t_adj_list* adj_list)
     t_matrix matrix = create_adj_matrix(*adj_list);
     generate_mermaid_file(adj_list, "../export/test_1.txt");
 
-    float* list = calloc(matrix.size, sizeof(float));
     //etat
+    float a = 0.2, b = 0.3, c = 0.1, d = 0.2, e = 0.2;
+    float* list = calloc(matrix.size, sizeof(float));
     //list[1] = 1;
     //list[1] = list[4] = list[11] = list[20] = list[24] = 1.0/5.0;
+    list[1] = a, list[4] = b, list[11] = c, list[20] = d, list[24] = e;
     //list[7] = 1;
     //list[7] = list[8] = list[15] = 1.0/3.0;
+    //list[7] = a, list[8] = b, list[15] = c;
     //list[13] = 1;
     //list[13] = list[9] = list[18] = list[21] = list[23] = 1.0/5.0;
+    //list[13] = a, list[9] = b, list[18] = c, list[21] = d, list[23] = e;
     //list[5] = 1;
     //list[5] = list[16] = list[19] = 1.0/3.0;
+    //list[5] = a, list[16] = b, list[19] = c;
     //list[2] = 1;
     //list[2] = list[6] = list[22] = 1.0/3.0;
+    //list[2] = a, list[6] = b, list[22] = c;
     t_matrix vect = vector_matrix(list,matrix.size);
 
     // puissance nb + 1
@@ -253,7 +259,7 @@ void projet_proba(t_adj_list* adj_list)
     printf("================== FIN PR =======================\n");
     printf("=================================================\n");
 }
-
+/*
 void proba_ex_3(t_adj_list* adj_list) {
     t_matrix matrix = create_adj_matrix(*adj_list);
     generate_mermaid_file(adj_list, "../export/test_1.txt");
@@ -270,7 +276,7 @@ void proba_ex_3(t_adj_list* adj_list) {
     print_vector(v0_q3);
     print_vector(q32);
     printf("Différence : %.2f", diff_matrix(v0_q3, q32));
-}
+}*/
 
 int main(void) {
     t_adj_list* adj_list = get_adj_list_selector();
