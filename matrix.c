@@ -213,10 +213,4 @@ t_matrix build_initial_vector(float *probas, int n, int total_size, int* set_sta
     return vec;
 }
 
-// Compare numériquement 2 vecteurs
-float diff_vectors(t_matrix v1, t_matrix v2)
-{
-    return diff_matrix(v1, v2);
-}
-
 
