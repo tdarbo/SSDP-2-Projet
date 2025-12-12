@@ -212,11 +212,11 @@ void projet_proba(t_adj_list* adj_list)
     generate_mermaid_file(adj_list, "../export/test_1.txt");
 
     //etat
-    float a = 0.2, b = 0.3, c = 0.1, d = 0.2, e = 0.2;
+    float a = 0.2, b = 0.3, c = 0.1, d = 0.2, e = 0.2, f = 0.0;
     float* list = calloc(matrix.size, sizeof(float));
     //list[1] = 1;
     //list[1] = list[4] = list[11] = list[20] = list[24] = 1.0/5.0;
-    list[1] = a, list[4] = b, list[11] = c, list[20] = d, list[24] = e;
+    //list[1] = a, list[4] = b, list[11] = c, list[20] = d, list[24] = e;
     //list[7] = 1;
     //list[7] = list[8] = list[15] = 1.0/3.0;
     //list[7] = a, list[8] = b, list[15] = c;
@@ -229,6 +229,14 @@ void projet_proba(t_adj_list* adj_list)
     //list[2] = 1;
     //list[2] = list[6] = list[22] = 1.0/3.0;
     //list[2] = a, list[6] = b, list[22] = c;
+
+    //list[0] = 1;
+    //list[0] = list[3] = list[10] = list[17] = list[25] = list[26] = 1.0/6.0;
+    //list[0] = a, list[3] = b, list[10] = c, list[17] = d, list[25] = e, list[26] = f;
+
+    //list[2] = 1; //one_state
+    //list[2] = 0.3, list[1] = 0.1, list[3] = 0.4, list[4] = 0.2; //random
+    //list[0] = 0.5, list[1] = 0.5; //limite pour periode
     t_matrix vect = vector_matrix(list,matrix.size);
 
     // puissance nb + 1
