@@ -26,6 +26,8 @@ t_adj_list* get_adj_list_selector() {
         "../data/exemple_scc1.txt",
         "../data/exemple_valid_step3.txt",
         "../data/matrice_proba.txt",
+        "../data/presentation_GCL.txt",
+        "../data/presentation_GCL2.txt",
         NULL
     };
 
