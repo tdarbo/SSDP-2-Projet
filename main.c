@@ -28,6 +28,8 @@ t_adj_list* get_adj_list_selector() {
         "../data/matrice_proba.txt",
         "../data/presentation_GCL.txt",
         "../data/presentation_GCL2.txt",
+        "../data/presentation_GCP.txt",
+        "../data/presentation_GCP2.txt",
         NULL
     };
 
